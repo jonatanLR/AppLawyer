@@ -2,26 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\JuezRepository;
+use App\Repository\ProcuradorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: JuezRepository::class)]
-class Juez
+#[ORM\Entity(repositoryClass: ProcuradorRepository::class)]
+class Procurador
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45)]
-    private ?string $num_profesion = null;
+    #[ORM\Column(length: 45, name: 'num_abogado')]
+    private ?string $numAbogado = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Persona $persona = null;
-
-    #[ORM\ManyToMany(targetEntity: Expediente::class, mappedBy: 'juezes')]
+    #[ORM\OneToMany(mappedBy: 'procurador', targetEntity: Expediente::class)]
     private Collection $expedientes;
 
     public function __construct()
@@ -34,26 +31,14 @@ class Juez
         return $this->id;
     }
 
-    public function getNumProfesion(): ?string
+    public function getNumAbogado(): ?string
     {
-        return $this->num_profesion;
+        return $this->numAbogado;
     }
 
-    public function setNumProfesion(string $num_profesion): self
+    public function setNumAbogado(string $numAbogado): self
     {
-        $this->num_profesion = $num_profesion;
-
-        return $this;
-    }
-
-    public function getPersona(): ?Persona
-    {
-        return $this->persona;
-    }
-
-    public function setPersona(?Persona $persona): self
-    {
-        $this->persona = $persona;
+        $this->numAbogado = $numAbogado;
 
         return $this;
     }
@@ -70,7 +55,7 @@ class Juez
     {
         if (!$this->expedientes->contains($expediente)) {
             $this->expedientes->add($expediente);
-            $expediente->addJueze($this);
+            $expediente->setProcurador($this);
         }
 
         return $this;
@@ -79,10 +64,12 @@ class Juez
     public function removeExpediente(Expediente $expediente): self
     {
         if ($this->expedientes->removeElement($expediente)) {
-            $expediente->removeJueze($this);
+            // set the owning side to null (unless already changed)
+            if ($expediente->getProcurador() === $this) {
+                $expediente->setProcurador(null);
+            }
         }
 
         return $this;
     }
-
 }

@@ -2,26 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\JuezRepository;
+use App\Repository\ClienteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: JuezRepository::class)]
-class Juez
+#[ORM\Entity(repositoryClass: ClienteRepository::class)]
+class Cliente
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45)]
-    private ?string $num_profesion = null;
+    #[ORM\Column(length: 255, columnDefinition: "ENUM('P', 'PT', 'O')")]
+    private ?string $tipo = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Persona $persona = null;
-
-    #[ORM\ManyToMany(targetEntity: Expediente::class, mappedBy: 'juezes')]
+    #[ORM\ManyToMany(targetEntity: Expediente::class, mappedBy: 'clientes')]
     private Collection $expedientes;
 
     public function __construct()
@@ -34,26 +31,14 @@ class Juez
         return $this->id;
     }
 
-    public function getNumProfesion(): ?string
+    public function getTipo(): ?string
     {
-        return $this->num_profesion;
+        return $this->tipo;
     }
 
-    public function setNumProfesion(string $num_profesion): self
+    public function setTipo(string $tipo): self
     {
-        $this->num_profesion = $num_profesion;
-
-        return $this;
-    }
-
-    public function getPersona(): ?Persona
-    {
-        return $this->persona;
-    }
-
-    public function setPersona(?Persona $persona): self
-    {
-        $this->persona = $persona;
+        $this->tipo = $tipo;
 
         return $this;
     }
@@ -70,7 +55,7 @@ class Juez
     {
         if (!$this->expedientes->contains($expediente)) {
             $this->expedientes->add($expediente);
-            $expediente->addJueze($this);
+            $expediente->addCliente($this);
         }
 
         return $this;
@@ -79,10 +64,9 @@ class Juez
     public function removeExpediente(Expediente $expediente): self
     {
         if ($this->expedientes->removeElement($expediente)) {
-            $expediente->removeJueze($this);
+            $expediente->removeCliente($this);
         }
 
         return $this;
     }
-
 }

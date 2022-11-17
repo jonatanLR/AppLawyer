@@ -2,26 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\JuezRepository;
+use App\Repository\JuzgadoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: JuezRepository::class)]
-class Juez
+#[ORM\Entity(repositoryClass: JuzgadoRepository::class)]
+class Juzgado
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45)]
-    private ?string $num_profesion = null;
+    #[ORM\Column(length: 255)]
+    private ?string $nombre = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Persona $persona = null;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $direccion = null;
 
-    #[ORM\ManyToMany(targetEntity: Expediente::class, mappedBy: 'juezes')]
+    #[ORM\OneToMany(mappedBy: 'juzgado', targetEntity: Expediente::class)]
     private Collection $expedientes;
 
     public function __construct()
@@ -34,26 +35,26 @@ class Juez
         return $this->id;
     }
 
-    public function getNumProfesion(): ?string
+    public function getNombre(): ?string
     {
-        return $this->num_profesion;
+        return $this->nombre;
     }
 
-    public function setNumProfesion(string $num_profesion): self
+    public function setNombre(string $nombre): self
     {
-        $this->num_profesion = $num_profesion;
+        $this->nombre = $nombre;
 
         return $this;
     }
 
-    public function getPersona(): ?Persona
+    public function getDireccion(): ?string
     {
-        return $this->persona;
+        return $this->direccion;
     }
 
-    public function setPersona(?Persona $persona): self
+    public function setDireccion(?string $direccion): self
     {
-        $this->persona = $persona;
+        $this->direccion = $direccion;
 
         return $this;
     }
@@ -70,7 +71,7 @@ class Juez
     {
         if (!$this->expedientes->contains($expediente)) {
             $this->expedientes->add($expediente);
-            $expediente->addJueze($this);
+            $expediente->setJuzgado($this);
         }
 
         return $this;
@@ -79,10 +80,12 @@ class Juez
     public function removeExpediente(Expediente $expediente): self
     {
         if ($this->expedientes->removeElement($expediente)) {
-            $expediente->removeJueze($this);
+            // set the owning side to null (unless already changed)
+            if ($expediente->getJuzgado() === $this) {
+                $expediente->setJuzgado(null);
+            }
         }
 
         return $this;
     }
-
 }

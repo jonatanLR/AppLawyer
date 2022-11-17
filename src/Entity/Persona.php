@@ -29,10 +29,6 @@ class Persona
     #[ORM\Column(length: 8, nullable: true)]
     private ?string $telefono = null;
 
-    #[ORM\OneToOne(inversedBy: 'persona', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Juez $juez = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -98,15 +94,4 @@ class Persona
         return $this;
     }
 
-    public function getJuez(): ?Juez
-    {
-        return $this->juez;
-    }
-
-    public function setJuez(Juez $juez): self
-    {
-        $this->juez = $juez;
-
-        return $this;
-    }
 }
