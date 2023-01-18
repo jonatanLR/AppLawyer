@@ -16,10 +16,16 @@ class Role
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nombre = null;
+    private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'role')]
     private Collection $users;
+
+    #[ORM\Column(name: 'role_name')]
+    private array $roleName = [];
+
+    #[ORM\Column]
+    private ?bool $status = null;
 
     public function __construct()
     {
@@ -31,14 +37,14 @@ class Role
         return $this->id;
     }
 
-    public function getNombre(): ?string
+    public function getName(): ?string
     {
-        return $this->nombre;
+        return $this->name;
     }
 
-    public function setNombre(string $nombre): self
+    public function setName(string $name): self
     {
-        $this->nombre = $nombre;
+        $this->name = $name;
 
         return $this;
     }
@@ -66,6 +72,30 @@ class Role
         if ($this->users->removeElement($user)) {
             $user->removeRole($this);
         }
+
+        return $this;
+    }
+
+    public function getRoleName(): array
+    {
+        return $this->roleName;
+    }
+
+    public function setRoleName(array $roleName): self
+    {
+        $this->roleName = $roleName;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

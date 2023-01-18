@@ -17,7 +17,7 @@ class Persona
     #[ORM\Column(length: 150)]
     private ?string $nombre = null;
 
-    #[ORM\Column(length: 15)]
+    #[ORM\Column(length: 15, unique: true)]
     private ?string $dni = null;
 
     #[ORM\Column(length: 255)]

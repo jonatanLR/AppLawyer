@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Persona;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends ServiceEntityRepository<Persona>
@@ -38,6 +39,15 @@ class PersonaRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    // public function findByRange($start, $end): array
+    // {
+    //     return $this->getEntityManager()->createQuery('
+    //     SELECT p FROM App:Persona p WHERE p.id BETWEEN :start AND :end
+    //     ')
+    //     ->setParameters(['start' => $start, 'end' => $end])
+    //     ->getResult();
+    // }
 
 //    /**
 //     * @return Persona[] Returns an array of Persona objects

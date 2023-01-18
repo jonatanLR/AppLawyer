@@ -44,6 +44,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
     private Collection $role;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Persona $persona = null;
+
     public function __construct()
     {
         $this->expedientes = new ArrayCollection();
@@ -82,9 +86,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        $userRoles = $this->getRole();
+
+        foreach($userRoles as $userRole){
+            $roles[] = $userRole->getRoleName();
+        }
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -203,6 +211,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeRole(Role $role): self
     {
         $this->role->removeElement($role);
+
+        return $this;
+    }
+
+    public function getPersona(): ?Persona
+    {
+        return $this->persona;
+    }
+
+    public function setPersona(Persona $persona): self
+    {
+        $this->persona = $persona;
 
         return $this;
     }

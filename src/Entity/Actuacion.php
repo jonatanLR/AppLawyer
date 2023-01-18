@@ -38,6 +38,10 @@ class Actuacion
     #[ORM\JoinColumn(nullable: false)]
     private ?TpActuacion $tpActuacion = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Actuaciones')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Expediente $expediente = null;
+
     public function __construct()
     {
         $this->documentos = new ArrayCollection();
@@ -165,6 +169,18 @@ class Actuacion
     public function setTpActuacion(?TpActuacion $tpActuacion): self
     {
         $this->tpActuacion = $tpActuacion;
+
+        return $this;
+    }
+
+    public function getExpediente(): ?Expediente
+    {
+        return $this->expediente;
+    }
+
+    public function setExpediente(?Expediente $expediente): self
+    {
+        $this->expediente = $expediente;
 
         return $this;
     }

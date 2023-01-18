@@ -21,6 +21,10 @@ class Procurador
     #[ORM\OneToMany(mappedBy: 'procurador', targetEntity: Expediente::class)]
     private Collection $expedientes;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Persona $persona = null;
+
     public function __construct()
     {
         $this->expedientes = new ArrayCollection();
@@ -69,6 +73,18 @@ class Procurador
                 $expediente->setProcurador(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPersona(): ?Persona
+    {
+        return $this->persona;
+    }
+
+    public function setPersona(Persona $persona): self
+    {
+        $this->persona = $persona;
 
         return $this;
     }

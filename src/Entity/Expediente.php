@@ -55,17 +55,28 @@ class Expediente
     #[ORM\JoinColumn(nullable: false)]
     private ?TpProcedimiento $tpProcedimiento = null;
 
+    #[ORM\OneToMany(mappedBy: 'expediente', targetEntity: Actuacion::class, orphanRemoval: true)]
+    private Collection $Actuaciones;
+
     public function __construct()
     {
         $this->juezes = new ArrayCollection();
         $this->contrarios = new ArrayCollection();
         $this->clientes = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->Actuaciones = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getTitulo(): ?string
@@ -268,6 +279,36 @@ class Expediente
     public function setTpProcedimiento(?TpProcedimiento $tpProcedimiento): self
     {
         $this->tpProcedimiento = $tpProcedimiento;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Actuacion>
+     */
+    public function getActuaciones(): Collection
+    {
+        return $this->Actuaciones;
+    }
+
+    public function addActuacione(Actuacion $actuacione): self
+    {
+        if (!$this->Actuaciones->contains($actuacione)) {
+            $this->Actuaciones->add($actuacione);
+            $actuacione->setExpediente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActuacione(Actuacion $actuacione): self
+    {
+        if ($this->Actuaciones->removeElement($actuacione)) {
+            // set the owning side to null (unless already changed)
+            if ($actuacione->getExpediente() === $this) {
+                $actuacione->setExpediente(null);
+            }
+        }
 
         return $this;
     }
