@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Juez Index
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('build/css/datatables/dataTables.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('build/css/datatables/responsive.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('build/css/datatables/buttons.bootstrap4.min.css') }}">
+
+{% endblock %}
+
+{% block body %}
+{% block preloader %}{% endblock %}
+
+{% block navbar %}
+	{{ include('fragments/_navbar.html.twig') }}
+{% endblock %}
+
+{% block main_sidebar %}
+	{{ include("fragments/_main_sidebar.html.twig") }}
+{% endblock %}
+
+{% block content_wrapper %}
+	{# {{include("fragments/_content_wrapper.html.twig")}} #}
+	<!-- Main content -->
+		<div class="content-wrapper"> <section class="content">
+			<div class="container-fluid">
+				<div class="row mt-2">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">DataTable with default features</h3>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Num. Profesion</th>
+											<th>Nombre</th>
+											<th>DNI</th>
+											<th>Email</th>
+											<th>Direccion</th>
+											<th>Telefono</th>
+										</tr>
+									</thead>
+									{% for juez in jueces %}
+										<tbody>
+											<tr>
+												<td>{{ juez.id }}</td>
+												<td>{{ juez.getNumProfesion() }}</td>
+												<td>{{ juez.persona.nombre }}</td>
+												<td>{{ juez.persona.dni }}</td>
+												<td>{{ juez.persona.email }}</td>
+												<td>{{ juez.persona.direccion }}</td>
+												<td>{{ juez.persona.telefono }}</td>
+											</tr>
+										</tbody>
+									{% endfor %}
+									<tfoot>
+										<tr>
+											<th>ID</th>
+											<th>Num. Profesion</th>
+											<th>Nombre</th>
+											<th>DNI</th>
+											<th>Email</th>
+											<th>Direccion</th>
+											<th>Telefono</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+							<!-- /.card-body -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<!-- /.content -->
+{% endblock %}
+
+{# {% block javascripts %}
+		{{ parent() }}
+		<script src="{{ asset('build/js/datatables/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/responsive.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/buttons.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/jszip.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/pdfmake.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/vfs_fonts.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/buttons.html5.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/buttons.print.min.js') }}"></script>
+		<script src="{{ asset('build/js/datatables/buttons.colVis.min.js') }}"></script>
+
+	{% endblock %} #}
+	{% block footer %}
+		{{include("fragments/_footer.html.twig")}}
+	{% endblock %}
+{% endblock %}

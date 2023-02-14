@@ -19,7 +19,7 @@ class TestController extends AbstractController
         $repo = $manager->getRepository(Procurador::class);
 
         $personas = $repo->findAll();
-        dd($personas);
+        // dd($personas);
         return $this->render('test/index.html.twig', [
             'controller_name' => 'TestController',
         ]);

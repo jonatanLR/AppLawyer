@@ -15,7 +15,8 @@
 			<!-- Font Awesome -->
 			{# <link rel="stylesheet" href="{{ asset('build/css/fontawesome.min.css') }}"> #}
 			<link
-			{# <link rel="stylesheet" href="{{asset('build/css/solid.min.css')}}"> #} rel="stylesheet" href="{{ asset('build/css/all.min.css') }}"> <!-- Ionicons -->
+			{# <link rel="stylesheet" href="{{asset('build/css/solid.min.css')}}"> #}
+			rel="stylesheet" href="{{ asset('build/css/all.min.css') }}"> <!-- Ionicons -->
 			<link
 			rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 			<!-- Tempusdominus Bootstrap 4 -->
@@ -42,7 +43,7 @@
 
 
 	</head>
-	<body class="hold-transition sidebar-mini layout-fixed">
+	<body class="hold-transition layout-top-nav">
 		{% block body %}
 			<div class="wrapper">
 				{% block preloader %}
@@ -96,39 +97,6 @@
 			<script src="{{ asset('build/js/demo.js') }}"></script>
 			<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 			<script src="{{ asset('build/js/dashboard.js') }}"></script>
-
-			<!-- dataTables -->
-			<script src="{{ asset('build/js/datatables/jquery.dataTables.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/dataTables.bootstrap4.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/dataTables.responsive.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/responsive.bootstrap4.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/dataTables.buttons.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/buttons.bootstrap4.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/jszip.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/pdfmake.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/vfs_fonts.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/buttons.html5.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/buttons.print.min.js') }}"></script>
-			<script src="{{ asset('build/js/datatables/buttons.colVis.min.js') }}"></script>
-			<script>
-				$(function () {
-						$("#example1").DataTable({
-						"responsive": true,
-						"lengthChange": false,
-						"autoWidth": false,
-						"searching": true,
-						"buttons": [
-						"copy",
-						"csv",
-						"excel",
-						"pdf",
-						"print",
-						"colvis"
-						]
-						}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-						
-                    });
-			</script>
 		{% endblock %}
 	</body>
 </html>
