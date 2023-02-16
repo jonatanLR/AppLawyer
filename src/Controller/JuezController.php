@@ -7,13 +7,14 @@ use App\Repository\PersonaRepository;
 use PharIo\Manifest\Requirement;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as RoutingRoute;
 
 use function PHPSTORM_META\type;
 
-#[Route('/juez', requirements:['_locale' => 'en|es|fr'], name:"juez_")]
+#[Route('/juez', requirements: ['_locale' => 'en|es|fr'], name: "juez_")]
 class JuezController extends AbstractController
 {
     private $juezRepository;
@@ -23,10 +24,9 @@ class JuezController extends AbstractController
     {
         $this->juezRepository = $juezRepository;
         $this->personaRepository = $personaRepository;
-        
     }
 
-    #[Route('',methods:['GET'], name: 'index')]
+    #[Route('', methods: ['GET'], name: 'index')]
     public function index(): Response
     {
         $jueces = $this->juezRepository->findAll();
@@ -34,5 +34,27 @@ class JuezController extends AbstractController
 
         return $this->render('juez/index.html.twig', compact('jueces'));
     }
+
+    #[Route('/ajax_get', name: 'ajax_get')]
+    public function ajaxGet()
+    {
+        $juecesAjax = $this->juezRepository->findAll();
+        // dd($juecesAjax);
+        $jsonData = array();
+        $idx = 0;
+
+        foreach ($juecesAjax as $juez) {
+            $temp = array(
+                "id" => $juez->getId(),
+                "numProf" => $juez->getNumProfesion(),
+                "nombre" => $juez->getPersona()->getNombre(),
+                "dni" => $juez->getPersona()->getDni(),
+                "email" => $juez->getPersona()->getEmail(),
+                "direccion" => $juez->getPersona()->getDireccion(),
+                "telefono" => $juez->getPersona()->getTelefono()
+            );
+            $jsonData[$idx++] = $temp;
+        }
+        return new JsonResponse($jsonData);
+    }
 }
-    

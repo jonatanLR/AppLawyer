@@ -72,12 +72,12 @@ class JuezRepository extends ServiceEntityRepository
     }
 
     // find all with query builder
-    public function findAllJuecesWithQB(): array
-    {
-        $query = $this->createQueryBuilder('j')
-            ->innerJoin('j.id_persona', 'p')
-            ->getQuery();
-    }
+    // public function findAllJuecesWithQB(): array
+    // {
+    //     $query = $this->createQueryBuilder('j')
+    //         ->innerJoin('j.id_persona', 'p')
+    //         ->getQuery();
+    // }
 
     public function findAllJuecesWithNativeSQL()
     {
