@@ -38,37 +38,27 @@
 								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
+											<th></th>
 											<th>ID</th>
 											<th>N Profesion</th>
 											<th>Nombre</th>
 											<th>DNI</th>
-											<th>Email</th>
+											{# <th>Email</th>
 											<th>Direccion</th>
-											<th>Telefono</th>
+											<th>Telefono</th> #}
 										</tr>
 									</thead>
-									{% for juez in jueces %}
-										<tbody>
-											<tr>
-												<td>{{ juez.id }}</td>
-												<td>{{ juez.getNumProfesion() }}</td>
-												<td>{{ juez.persona.nombre }}</td>
-												<td>{{ juez.persona.dni }}</td>
-												<td>{{ juez.persona.email }}</td>
-												<td>{{ juez.persona.direccion }}</td>
-												<td>{{ juez.persona.telefono }}</td>
-											</tr>
-										</tbody>
-									{% endfor %}
+								
 									<tfoot>
 										<tr>
+											<th></th>
 											<th>ID</th>
 											<th>N Profesion</th>
 											<th>Nombre</th>
 											<th>DNI</th>
-											<th>Email</th>
+											{# <th>Email</th>
 											<th>Direccion</th>
-											<th>Telefono</th>
+											<th>Telefono</th> #}
 										</tr>
 									</tfoot>
 								</table>

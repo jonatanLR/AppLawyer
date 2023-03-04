@@ -68,7 +68,7 @@ class JuezRepository extends ServiceEntityRepository
     // Find all with DQL
     public function findAllJuecesWithDQL(): array
     {
-        return $this->getEntityManager()->createQuery('select j,p from App:Juez j JOIN j.persona p')->getResult();
+        return $this->getEntityManager()->createQuery('select j,p from App:Juez j JOIN j.persona p')->getArrayResult();
     }
 
     // find all with query builder
