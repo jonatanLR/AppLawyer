@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as RoutingRoute;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 use function PHPSTORM_META\type;
 
@@ -35,8 +38,8 @@ class JuezController extends AbstractController
         return $this->render('juez/index.html.twig', compact('jueces'));
     }
 
-    #[Route('/ajax_get', name: 'ajax_get')]
-    public function ajaxGet()
+    #[Route('/ajax_get', methods: ['GET'], name: 'ajax_get')]
+    public function ajaxGet(SerializerInterface $serializer):Response
     {
         $juecesAjax = $this->juezRepository->findAll();
         // dd($juecesAjax);
@@ -55,6 +58,13 @@ class JuezController extends AbstractController
             );
             $jsonData[$idx++] = $temp;
         }
+        // $jsonData = $serializer->serialize($juecesAjax, 'json');
+        // return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
+            // $jsonencode = json_encode($juecesAjax);
+            // $jsonreplace = str_replace(["[","]"],["{","}"],$jsonencode);
+            // $jsondecode = json_decode($jsonreplace);
+            // dd($jsonreplace);
+
         return new JsonResponse($jsonData);
     }
 }

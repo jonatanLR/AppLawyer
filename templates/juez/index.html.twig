@@ -5,9 +5,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link rel="stylesheet" href="{{ asset('build/css/datatables/dataTables.bootstrap4.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('build/css/datatables/responsive.bootstrap4.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('build/css/datatables/buttons.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
 
 {% endblock %}
 
@@ -31,44 +31,34 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h3 class="card-title">DataTable with default features</h3>
+								<h3 class="card-title">Datos Jueces</h3>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
-								<table id="example1" class="table table-bordered table-striped">
+								<table id="tablejuez" class="table table-bordered table-striped">
 									<thead>
 										<tr>
+											<th></th>
 											<th>ID</th>
 											<th>N Profesion</th>
 											<th>Nombre</th>
 											<th>DNI</th>
-											<th>Email</th>
+											{# <th>Email</th>
 											<th>Direccion</th>
-											<th>Telefono</th>
+											<th>Telefono</th> #}
 										</tr>
 									</thead>
-									{% for juez in jueces %}
-										<tbody>
-											<tr>
-												<td>{{ juez.id }}</td>
-												<td>{{ juez.getNumProfesion() }}</td>
-												<td>{{ juez.persona.nombre }}</td>
-												<td>{{ juez.persona.dni }}</td>
-												<td>{{ juez.persona.email }}</td>
-												<td>{{ juez.persona.direccion }}</td>
-												<td>{{ juez.persona.telefono }}</td>
-											</tr>
-										</tbody>
-									{% endfor %}
+								
 									<tfoot>
 										<tr>
+											<th></th>
 											<th>ID</th>
 											<th>N Profesion</th>
 											<th>Nombre</th>
 											<th>DNI</th>
-											<th>Email</th>
+											{# <th>Email</th>
 											<th>Direccion</th>
-											<th>Telefono</th>
+											<th>Telefono</th> #}
 										</tr>
 									</tfoot>
 								</table>
@@ -85,18 +75,18 @@
 
 {# {% block javascripts %}
 		{{ parent() }}
-		<script src="{{ asset('build/js/datatables/jquery.dataTables.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/dataTables.bootstrap4.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/dataTables.responsive.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/responsive.bootstrap4.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/dataTables.buttons.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/buttons.bootstrap4.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/jszip.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/pdfmake.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/vfs_fonts.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/buttons.html5.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/buttons.print.min.js') }}"></script>
-		<script src="{{ asset('build/js/datatables/buttons.colVis.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/responsive.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
 
 	{% endblock %} #}
 	{% block footer %}
@@ -106,18 +96,18 @@
 	{% block javascripts %}
 		<!-- dataTables -->
 		{{parent()}}
-				<script src="{{ asset('build/js/datatables/jquery.dataTables.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/dataTables.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/dataTables.responsive.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/responsive.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/dataTables.buttons.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/jszip.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/pdfmake.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/vfs_fonts.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.html5.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.print.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.colVis.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/juez.js') }}"></script>
+				<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/responsive.bootstrap4.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/funciones/juez.js') }}"></script>
 	{% endblock %}
 {% endblock %}

@@ -13,31 +13,31 @@
 			{{ encore_entry_link_tags('app') }}
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 			<!-- Font Awesome -->
-			{# <link rel="stylesheet" href="{{ asset('build/css/fontawesome.min.css') }}"> #}
+			{# <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}"> #}
 			<link
-			{# <link rel="stylesheet" href="{{asset('build/css/solid.min.css')}}"> #} rel="stylesheet" href="{{ asset('build/css/all.min.css') }}"> <!-- Ionicons -->
+			{# <link rel="stylesheet" href="{{asset('css/solid.min.css')}}"> #} rel="stylesheet" href="{{ asset('css/all.min.css') }}"> <!-- Ionicons -->
 			<link
 			rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 			<!-- Tempusdominus Bootstrap 4 -->
 			<link
-			rel="stylesheet" href="{{ asset('build/css/tempusdominus-bootstrap-4.min.css') }}">
+			rel="stylesheet" href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}">
 			<!-- iCheck -->
 			<link
-			rel="stylesheet" href="{{ asset('build/css/icheck-bootstrap.min.css') }}">
+			rel="stylesheet" href="{{ asset('css/icheck-bootstrap.min.css') }}">
 			<!-- JQVMap -->
 			<link
-			rel="stylesheet" href="{{ asset('build/css/jqvmap.min.css') }}">
+			rel="stylesheet" href="{{ asset('css/jqvmap.min.css') }}">
 			<!-- Theme style -->
 			<link
-			rel="stylesheet" href="{{ asset('build/css/adminlte.min.css') }}">
+			rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 			<!-- overlayScrollbars -->
 			<link
-			rel="stylesheet" href="{{ asset('build/css/OverlayScrollbars.min.css') }}">
+			rel="stylesheet" href="{{ asset('css/OverlayScrollbars.min.css') }}">
 			<!-- Daterange picker -->
 			<link
-			rel="stylesheet" href="{{ asset('build/css/daterangepicker.css') }}">
+			rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
 			<!-- summernote -->
-			<link rel="stylesheet" href="{{ asset('build/css/summernote-bs4.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('css/summernote-bs4.min.css') }}">
 		{% endblock %}
 
 
@@ -47,7 +47,7 @@
 			<div class="wrapper">
 				{% block preloader %}
 					<div class="preloader flex-column justify-content-center align-items-center">
-						<img class="animation__shake" src="{{ asset('build/images/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+						<img class="animation__shake" src="{{ asset('images/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
 					</div>
 				{% endblock %}
 
@@ -62,53 +62,53 @@
 
 			{% block javascripts %}
 				{# {{ encore_entry_script_tags('app') }} #}
-				<!-- jQuery --><script src="{{ asset('build/js/jquery.min.js') }}"> </script>
+				<!-- jQuery --><script src="{{ asset('js/jquery.min.js') }}"> </script>
 				<!-- jQuery UI 1.11.4 -->
-				<script src="{{ asset('build/js/jquery-ui.min.js') }}"></script>
+				<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 				<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 				<script>
 					$.widget.bridge('uibutton', $.ui.button)
 				</script>
 				<!-- Bootstrap 4 -->
-				<script src="{{ asset('build/js/bootstrap.bundle.min.js') }}"></script>
+				<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 				<!-- ChartJS -->
-				<script src="{{ asset('build/js/Chart.min.js') }}"></script>
+				<script src="{{ asset('js/Chart.min.js') }}"></script>
 				<!-- Sparkline -->
-				<script src="{{ asset('build/js/sparkline.js') }}"></script>
+				<script src="{{ asset('js/sparkline.js') }}"></script>
 				<!-- JQVMap -->
-				<script src="{{ asset('build/js/jquery.vmap.min.js') }}"></script>
-				<script src="{{ asset('build/js/jquery.vmap.usa.js') }}"></script>
+				<script src="{{ asset('js/jquery.vmap.min.js') }}"></script>
+				<script src="{{ asset('js/jquery.vmap.usa.js') }}"></script>
 				<!-- jQuery Knob Chart -->
-				<script src="{{ asset('build/js/jquery.knob.min.js') }}"></script>
+				<script src="{{ asset('js/jquery.knob.min.js') }}"></script>
 				<!-- daterangepicker -->
-				<script src="{{ asset('build/js/moment.min.js') }}"></script>
-				<script src="{{ asset('build/js/daterangepicker.js') }}"></script>
+				<script src="{{ asset('js/moment.min.js') }}"></script>
+				<script src="{{ asset('js/daterangepicker.js') }}"></script>
 				<!-- Tempusdominus Bootstrap 4 -->
-				<script src="{{ asset('build/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+				<script src="{{ asset('js/tempusdominus-bootstrap-4.min.js') }}"></script>
 				<!-- Summernote -->
-				<script src="{{ asset('build/js/summernote-bs4.min.js') }}"></script>
+				<script src="{{ asset('js/summernote-bs4.min.js') }}"></script>
 				<!-- overlayScrollbars -->
-				<script src="{{ asset('build/js/jquery.overlayScrollbars.min.js') }}"></script>
+				<script src="{{ asset('js/jquery.overlayScrollbars.min.js') }}"></script>
 				<!-- AdminLTE App -->
-				<script src="{{ asset('build/js/adminlte.js') }}"></script>
+				<script src="{{ asset('js/adminlte.min.js') }}"></script>
 				<!-- AdminLTE for demo purposes -->
-				<script src="{{ asset('build/js/demo.js') }}"></script>
+				<script src="{{ asset('js/demo.js') }}"></script>
 				<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-				<script src="{{ asset('build/js/dashboard.js') }}"></script>
+				<script src="{{ asset('js/dashboard.js') }}"></script>
 
 				{# <!-- dataTables -->
-				<script src="{{ asset('build/js/datatables/jquery.dataTables.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/dataTables.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/dataTables.responsive.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/responsive.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/dataTables.buttons.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/jszip.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/pdfmake.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/vfs_fonts.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.html5.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.print.min.js') }}"></script>
-				<script src="{{ asset('build/js/datatables/buttons.colVis.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/responsive.bootstrap4.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
+				<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
 				<script>
 					$(function () {
 						$("#example1").DataTable({
