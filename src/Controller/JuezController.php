@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Juez;
+use App\Entity\Persona;
+use App\Form\JuezFormType;
 use App\Repository\JuezRepository;
 use App\Repository\PersonaRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use LDAP\Result;
 use PharIo\Manifest\Requirement;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as RoutingRoute;
@@ -21,11 +27,13 @@ use function PHPSTORM_META\type;
 class JuezController extends AbstractController
 {
     private $juezRepository;
+    private $emi;
     private $personaRepository;
 
-    public function __construct(JuezRepository $juezRepository, PersonaRepository $personaRepository)
+    public function __construct(JuezRepository $juezRepository, EntityManagerInterface $emi, PersonaRepository $personaRepository)
     {
         $this->juezRepository = $juezRepository;
+        $this->emi = $emi;
         $this->personaRepository = $personaRepository;
     }
 
@@ -38,8 +46,107 @@ class JuezController extends AbstractController
         return $this->render('juez/index.html.twig', compact('jueces'));
     }
 
+    #[Route('/create', name: 'create')]
+    public function create(Request $request): Response
+    {
+        $juez = new Juez();
+
+        $form = $this->createForm(JuezFormType::class);
+
+        $form->handleRequest($request);
+
+        // $data = $form->get('persona')->getViewData();
+        // $data = $form->get('num_profesion')->getData();
+        $juezNP = $form->get('num_profesion')->getData();
+
+        // dd($data);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $persona = new Persona();
+            $jueznuevo = new Juez();
+            $newpersona = $form->get('persona')->getViewData();
+
+            $this->emi->persist($newpersona);
+            $this->emi->flush();
+            $lasID = $newpersona->getID();
+
+            $jueznuevo->setPersona($newpersona);
+            $jueznuevo->setNumProfesion($juezNP);
+
+            $this->emi->persist($jueznuevo);
+            $this->emi->flush();
+
+            return $this->redirectToRoute('juez_index');
+        }
+        return $this->render('juez/create.html.twig', [
+            'formJuez' => $form->createView()
+        ]);
+    }
+
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit($id, Request $request): Response
+    {
+        $juez = $this->juezRepository->find($id);
+
+        $form_je = $this->createForm(JuezFormType::class, $juez);
+
+        $form_je->handleRequest($request);
+
+        $data = $form_je->getData();
+
+        // $content = json_decode($request->getContent());
+        // dd($content);
+
+        
+            if ($form_je->isSubmitted() && $form_je->isValid()) {
+
+                // dd($data);
+                $editpersona = $form_je->get('persona')->getViewData();
+
+                $juez->setNumProfesion($form_je->get('num_profesion')->getData());
+                $juez->setPersona($editpersona);
+
+                $this->emi->flush();
+
+                return $this->redirectToRoute('juez_index');
+            }
+        
+        return $this->render('juez/edit.html.twig', [
+            'juez' => $juez,
+            'form_je' => $form_je->createView()
+        ]);
+    }
+
+    #[Route('/ajax_delete/{id}', name: 'delete', methods:['GET','DELETE'])]
+    public function delete($id)
+    {
+        $rep_juez = $this->emi->getRepository(Juez::class);
+        $juez_del = $rep_juez->find($id);
+
+        $this->emi->remove($juez_del);
+        $this->emi->flush();
+        $juecesAjax = $this->juezRepository->findAll();
+        // dd($juecesAjax);
+        $jsonData = array();
+        $idx = 0;
+
+        foreach ($juecesAjax as $juez) {
+            $temp = array(
+                "id" => $juez->getId(),
+                "numProf" => $juez->getNumProfesion(),
+                "nombre" => $juez->getPersona()->getNombre(),
+                "dni" => $juez->getPersona()->getDni(),
+                "email" => $juez->getPersona()->getEmail(),
+                "direccion" => $juez->getPersona()->getDireccion(),
+                "telefono" => $juez->getPersona()->getTelefono()
+            );
+            $jsonData[$idx++] = $temp;
+        }
+
+        return new JsonResponse($jsonData);
+    }
+
     #[Route('/ajax_get', methods: ['GET'], name: 'ajax_get')]
-    public function ajaxGet(SerializerInterface $serializer):Response
+    public function ajaxGet(SerializerInterface $serializer): Response
     {
         $juecesAjax = $this->juezRepository->findAll();
         // dd($juecesAjax);
@@ -58,12 +165,6 @@ class JuezController extends AbstractController
             );
             $jsonData[$idx++] = $temp;
         }
-        // $jsonData = $serializer->serialize($juecesAjax, 'json');
-        // return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
-            // $jsonencode = json_encode($juecesAjax);
-            // $jsonreplace = str_replace(["[","]"],["{","}"],$jsonencode);
-            // $jsondecode = json_decode($jsonreplace);
-            // dd($jsonreplace);
 
         return new JsonResponse($jsonData);
     }

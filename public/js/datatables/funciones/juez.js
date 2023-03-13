@@ -26,9 +26,10 @@ function format(d) {
 }
 
 $(document).ready(function () {
+    var table;
     $.get('/juez/ajax_get', function (data) {
     
-        var table = $('#tablejuez').DataTable({
+        table = $('#tablejuez').DataTable({
             data: data,
             columns: [
                 {
@@ -41,7 +42,16 @@ $(document).ready(function () {
                 { data: "numProf" },
                 { data: "nombre" },
                 { data: "dni" },
+                { data: "id",
+               "width": "50px",
+                "render":function (data) {
+                    return '<a href="/juez/edit/'+data+'" class="editar btn btn-sm btn-primary" title="Editar Juez"><i class="fas fa-edit"></i></a>' + ' ' 
+                    + '<button type="button" id="'+data+'" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></button>'
+                }
+        },
             ],
+            responsive: true,
+            "autoWidth": false,
             order: [[1, 'asc']],
         }); // end of datatable
 
@@ -60,5 +70,77 @@ $(document).ready(function () {
                 tr.addClass('shown');
             }
         });
+
+        // funcion para eliminar el juez seleccionado
+        $('#tablejuez tbody').on('click', 'td .delete', function () {
+            var id = $(this).attr("id");
+            // console.log('click en button del: ' + id);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/juez/ajax_delete/'+id);
+                    table.ajax.reload();
+                    // table.ajax.reload();
+                              
+                }
+            })
+        });// end of delete
     });// end of get funcion
+    
 }); // end of document ready
+
+
+// $('#tablejuez tbody').on('click', 'td .delete', function () {
+//     console.log('click en button');
+    // const Toast = Swal.mixin({
+    //     toast: true,
+    //     position: 'top-end',
+    //     showConfirmButton: false,
+    //     timer: 3000,
+    //     timerProgressBar: true,
+    //     onOpen: (toast) => {
+    //       toast.addEventListener('mouseenter', Swal.stopTimer)
+    //       toast.addEventListener('mouseleave', Swal.resumeTimer)
+    //     }
+    //   });
+
+    //   Toast.fire({
+    //     icon: 'success',
+    //     title: 'Enviado a opinión legal de operación: '
+    //   });
+
+    //   Swal.fire(
+    //     'Good job!',
+    //     'You clicked the button!',
+    //     'success'
+    //   )
+    // Swal.fire({
+    //     title: 'Login Form',
+    //     html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
+    //     <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+    //     confirmButtonText: 'Sign in',
+    //     focusConfirm: false,
+    //     preConfirm: () => {
+    //       const login = Swal.getPopup().querySelector('#login').value
+    //       const password = Swal.getPopup().querySelector('#password').value
+    //       if (!login || !password) {
+    //         Swal.showValidationMessage(`Please enter login and password`)
+    //       }
+    //       return { login: login, password: password }
+    //     }
+    //   }).then((result) => {
+    //     Swal.fire(`
+    //       Login: ${result.value.login}
+    //       Password: ${result.value.password}
+    //     `.trim())
+    //   })
+      
+        
+// });

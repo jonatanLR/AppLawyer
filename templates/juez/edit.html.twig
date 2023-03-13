@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% form_theme form_je 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Juez Crear
+{% endblock %}
+
+{# {% block stylesheets %}{{ parent() }}{% endblock %} #}
+
+{% block body %}
+	{% block preloader %}{% endblock %}
+
+	{% block navbar %}
+		{{ include('fragments/_navbar.html.twig') }}
+	{% endblock %}
+
+	{% block main_sidebar %}
+		{{ include("fragments/_main_sidebar.html.twig") }}
+	{% endblock %}
+
+	{% block content_wrapper %}
+		<!-- Content Wrapper. Contains page content -->
+		<div
+			class="content-wrapper">
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div
+						class="row">
+                        <div class="col-md-2"></div>
+						<!-- left column -->
+						<div
+							class="col-md-8">
+							<!-- jquery validation -->
+							<div class="card card-primary mt-3">
+								<div class="card-header">
+									<h3 class="card-title">Editar Juez</h3>
+								</div>
+								{# card body #}
+								<div
+									class="card-body">
+									<!-- form start -->
+									{{ form_start(form_je) }}
+									{# {{ form_widget(formJuez) }} #}
+
+									{{ form_end(form_je) }}
+								</div>
+								<!-- end card body -->
+							</div>
+							<!-- /.card -->
+						</div>
+						<!--/.col (left) -->
+						<!-- right column -->
+						<div class="col-md-2"></div>
+						<!--/.col (right) -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		{# {{ form(formJuez) }} #}
+	{% endblock %}
+
+	{% block footer %}
+		{{include("fragments/_footer.html.twig")}}
+	{% endblock %}
+
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+
+{% endblock %}

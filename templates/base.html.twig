@@ -54,7 +54,7 @@
 				{% block navbar %}{% endblock %}
 
 				{% block main_sidebar %}{% endblock %}
-
+				
 				{% block content_wrapper %}{% endblock %}
 
 				{% block footer %}{% endblock %}
@@ -95,39 +95,8 @@
 				<script src="{{ asset('js/demo.js') }}"></script>
 				<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 				<script src="{{ asset('js/dashboard.js') }}"></script>
-
-				{# <!-- dataTables -->
-				<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/responsive.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
-				<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
-				<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
-				<script>
-					$(function () {
-						$("#example1").DataTable({
-						"responsive": true,
-						"lengthChange": false,
-						"autoWidth": false,
-						"searching": true,
-						"buttons": [
-						"copy",
-						"csv",
-						"excel",
-						"pdf",
-						"print",
-						"colvis"
-						]
-						}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-					});
-				</script> #}
+				<script src="{{ asset('js/sweetalert.min.js') }}"></script>
+				<script src="{{ asset('js/sweetalert2.js') }}"></script>
 			{% endblock %}
 
 		{% endblock %}
