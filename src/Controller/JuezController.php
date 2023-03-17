@@ -8,17 +8,11 @@ use App\Form\JuezFormType;
 use App\Repository\JuezRepository;
 use App\Repository\PersonaRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use LDAP\Result;
-use PharIo\Manifest\Requirement;
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Route as RoutingRoute;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 use function PHPSTORM_META\type;
@@ -37,6 +31,7 @@ class JuezController extends AbstractController
         $this->personaRepository = $personaRepository;
     }
 
+    // funcion index para mostrar el inicio de la lista de jueces en una tabla
     #[Route('', methods: ['GET'], name: 'index')]
     public function index(): Response
     {
@@ -46,6 +41,7 @@ class JuezController extends AbstractController
         return $this->render('juez/index.html.twig', compact('jueces'));
     }
 
+    // funcion para crear un juez y redirigir hacia index
     #[Route('/create', name: 'create')]
     public function create(Request $request): Response
     {
@@ -82,6 +78,7 @@ class JuezController extends AbstractController
         ]);
     }
 
+    // funcion para editar un juez por medio de un formulario
     #[Route('/edit/{id}', name: 'edit')]
     public function edit($id, Request $request): Response
     {
@@ -96,7 +93,6 @@ class JuezController extends AbstractController
         // $content = json_decode($request->getContent());
         // dd($content);
 
-        
             if ($form_je->isSubmitted() && $form_je->isValid()) {
 
                 // dd($data);
@@ -116,6 +112,7 @@ class JuezController extends AbstractController
         ]);
     }
 
+    // funcion ajax para eliminar un juez desde la tabla
     #[Route('/ajax_delete/{id}', name: 'delete', methods:['GET','DELETE'])]
     public function delete($id)
     {
@@ -124,27 +121,12 @@ class JuezController extends AbstractController
 
         $this->emi->remove($juez_del);
         $this->emi->flush();
-        $juecesAjax = $this->juezRepository->findAll();
-        // dd($juecesAjax);
-        $jsonData = array();
-        $idx = 0;
-
-        foreach ($juecesAjax as $juez) {
-            $temp = array(
-                "id" => $juez->getId(),
-                "numProf" => $juez->getNumProfesion(),
-                "nombre" => $juez->getPersona()->getNombre(),
-                "dni" => $juez->getPersona()->getDni(),
-                "email" => $juez->getPersona()->getEmail(),
-                "direccion" => $juez->getPersona()->getDireccion(),
-                "telefono" => $juez->getPersona()->getTelefono()
-            );
-            $jsonData[$idx++] = $temp;
-        }
-
-        return new JsonResponse($jsonData);
+        
+        $response = new Response();
+        $response->send();
     }
 
+    // funcion ajaxGet para responder al request de Datatable jueces
     #[Route('/ajax_get', methods: ['GET'], name: 'ajax_get')]
     public function ajaxGet(SerializerInterface $serializer): Response
     {

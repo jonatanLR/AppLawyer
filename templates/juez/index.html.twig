@@ -27,11 +27,11 @@
 	<!-- Main content -->
 		<div class="content-wrapper"> <section class="content">
 			<div class="container-fluid">
-				<div class="row mt-2">
+				<div class="row">
 					<div class="col-12">
-						<div class="card">
+						<div class="card  mt-2">
 							<div class="card-header">
-								<h3 class="card-title">Datos Jueces ({{ jueces|length }})</h3>
+								<h3 id="juezlength" class="card-title">Datos Jueces ({{ jueces|length }})</h3>
 								<a id="crearjuez" class="btn btn-primary float-right mr-3" href="{{ path('juez_create') }}" role="button">Crear Nuevo Juez</a>
 							</div>
 							<!-- /.card-header -->

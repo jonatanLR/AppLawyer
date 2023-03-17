@@ -27,10 +27,15 @@ function format(d) {
 
 $(document).ready(function () {
     var table;
-    $.get('/juez/ajax_get', function (data) {
+    // $.get('/juez/ajax_get', function (data) {
     
         table = $('#tablejuez').DataTable({
-            data: data,
+            "ajax": {
+                "url": "/juez/ajax_get",
+                "method": 'GET', //usamos el metodo POST
+                // "data": { opcion: opcion }, //enviamos opcion 4 para que haga un SELECT
+                "dataSrc": ""
+            },
             columns: [
                 {
                     className: 'dt-control text-center',
@@ -74,73 +79,43 @@ $(document).ready(function () {
         // funcion para eliminar el juez seleccionado
         $('#tablejuez tbody').on('click', 'td .delete', function () {
             var id = $(this).attr("id");
+            var fila = $(this);
             // console.log('click en button del: ' + id);
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'Seguro de eliminar?',
+                text: "No seras capaz de revertir esta accion!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Si, eliminarlo!'
               }).then((result) => {
                 if (result.isConfirmed) {
                     fetch('/juez/ajax_delete/'+id);
-                    table.ajax.reload();
                     // table.ajax.reload();
+                    Swal.fire(
+                        'Eliminado!',
+                        'El juez fue eliminado.',
+                        'success'
+                      );
+                    table.row(fila.parents('tr')).remove().ajax.reload(null,false);
                               
                 }
             })
         });// end of delete
-    });// end of get funcion
+
+        // funcion para actualizar el contador de jueces existentes luego de hacer click 
+        // en el boton eliminar y desencadenado por medio de setInterval
+        $('#tablejuez tbody').on('click', 'td .delete',function() {
+            const interval = setInterval(function() {
+                $('#juezlength').load(' #juezlength');
+                console.log('recargado: ')
+            },2000);
+
+            setTimeout(() => {
+                clearInterval(interval);
+            }, 5000);
+
+        });
     
 }); // end of document ready
-
-
-// $('#tablejuez tbody').on('click', 'td .delete', function () {
-//     console.log('click en button');
-    // const Toast = Swal.mixin({
-    //     toast: true,
-    //     position: 'top-end',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //     onOpen: (toast) => {
-    //       toast.addEventListener('mouseenter', Swal.stopTimer)
-    //       toast.addEventListener('mouseleave', Swal.resumeTimer)
-    //     }
-    //   });
-
-    //   Toast.fire({
-    //     icon: 'success',
-    //     title: 'Enviado a opinión legal de operación: '
-    //   });
-
-    //   Swal.fire(
-    //     'Good job!',
-    //     'You clicked the button!',
-    //     'success'
-    //   )
-    // Swal.fire({
-    //     title: 'Login Form',
-    //     html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
-    //     <input type="password" id="password" class="swal2-input" placeholder="Password">`,
-    //     confirmButtonText: 'Sign in',
-    //     focusConfirm: false,
-    //     preConfirm: () => {
-    //       const login = Swal.getPopup().querySelector('#login').value
-    //       const password = Swal.getPopup().querySelector('#password').value
-    //       if (!login || !password) {
-    //         Swal.showValidationMessage(`Please enter login and password`)
-    //       }
-    //       return { login: login, password: password }
-    //     }
-    //   }).then((result) => {
-    //     Swal.fire(`
-    //       Login: ${result.value.login}
-    //       Password: ${result.value.password}
-    //     `.trim())
-    //   })
-      
-        
-// });

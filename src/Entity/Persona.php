@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\PersonaRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PersonaRepository::class)]
+#[UniqueEntity(fields: ['dni'], message:'There is already an number with this dni')]
 class Persona
 {
     #[ORM\Id]
@@ -15,9 +18,11 @@ class Persona
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank]
     private ?string $nombre = null;
 
     #[ORM\Column(length: 15, unique: true)]
+    #[Assert\Unique] 
     private ?string $dni = null;
 
     #[ORM\Column(length: 255)]
