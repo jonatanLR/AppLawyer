@@ -6,8 +6,11 @@ use App\Repository\JuezRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: JuezRepository::class)]
+#[UniqueEntity('num_profesion','Este numero ya esta en uso')]
 class Juez
 {
     #[ORM\Id]
@@ -15,7 +18,8 @@ class Juez
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45)]
+    #[ORM\Column(name:'numprofesion',length: 8, unique:true,)]
+    #[Assert\NotBlank]
     private ?string $num_profesion = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]

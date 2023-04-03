@@ -15,8 +15,8 @@ class Cliente
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, columnDefinition: "ENUM('P', 'PT', 'O')")]
-    private ?string $tipo = null;
+    // #[ORM\Column(length: 255, columnDefinition: "ENUM('P', 'PT', 'O')",)]
+    // private ?string $tipo = null;
 
     #[ORM\ManyToMany(targetEntity: Expediente::class, mappedBy: 'clientes')]
     private Collection $expedientes;
@@ -24,6 +24,9 @@ class Cliente
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Persona $persona = null;
+
+    #[ORM\ManyToOne(inversedBy: 'clientes')]
+    private ?TipoCC $tipoCC = null;
 
     public function __construct()
     {
@@ -33,18 +36,6 @@ class Cliente
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTipo(): ?string
-    {
-        return $this->tipo;
-    }
-
-    public function setTipo(string $tipo): self
-    {
-        $this->tipo = $tipo;
-
-        return $this;
     }
 
     /**
@@ -85,4 +76,17 @@ class Cliente
 
         return $this;
     }
+
+    public function getTipoCC(): ?TipoCC
+    {
+        return $this->tipoCC;
+    }
+
+    public function setTipoCC(?TipoCC $tipoCC): self
+    {
+        $this->tipoCC = $tipoCC;
+
+        return $this;
+    }
+
 }

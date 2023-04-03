@@ -10,6 +10,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
 use App\Entity\Persona;
 use App\Entity\Role;
+use App\Entity\TipoCC;
 use App\Entity\TpActuacion;
 use App\Entity\TpProcedimiento;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,18 +30,20 @@ class AppFixtures extends Fixture
     {
         
         $this->loadPersona($manager);
+        // $this->loadTipoCC($manager);
         $this->loadJuez($manager);
         $this->loadRole($manager);
         $this->loadJuzgado($manager);
         $this->loadTpProcedimiento($manager);
         $this->loadTpActuacion($manager);
+        
     }
 
     public function loadPersona(ObjectManager $manager){
         for ($i=0; $i < 50; $i++) { 
             $persona = new Persona();
             $persona->setNombre($this->faker->name());
-            $persona->setDni($this->faker->unique()->numerify(rand(0,1) . rand(1,8) . '##-19##-#####'));
+            $persona->setDni($this->faker->unique()->numerify(rand(0,1) . rand(1,8) . rand(0,2) . rand(0,8) . '19#######'));
             $persona->setEmail($this->faker->email);
             $persona->setDireccion($this->faker->address());
             $persona->setTelefono($this->faker->numerify($this->faker->randomElement([3,8,9]) .'#######'));
@@ -58,7 +61,7 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 10; $i++) { 
             $juez = new Juez();
-            $juez->setNumProfesion($this->faker->unique()->numerify('A######'));
+            $juez->setNumProfesion($this->faker->unique()->numerify('A#######'));
             $juez->setPersona($personas[$i]);
             $this->addReference("juez_" . $this->faker->unique()->randomDigit, $juez);
             $manager->persist($juez);
@@ -124,4 +127,17 @@ class AppFixtures extends Fixture
 
         $manager->flush();
     }
+
+    // public function loadTipoCC(ObjectManager $manager){
+    //     $tpCCArray = array("Juridica", "Natural", "Privada", "Publica", "Independiente");
+
+    //     for ($i=0; $i < count($tpCCArray) ; $i++) { 
+    //         $tipoc = new TipoCC();
+    //         $tipoc->setNombre($tpCCArray[$i]);
+
+    //         $manager->persist($tipoc);
+    //     }
+
+    //     $manager->flush();
+    // }
 }

@@ -58,6 +58,7 @@ $(document).ready(function () {
             responsive: true,
             "autoWidth": false,
             order: [[1, 'asc']],
+            stateSave: true
         }); // end of datatable
 
         // Add event listener for opening and closing details

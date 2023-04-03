@@ -15,7 +15,7 @@ class Procurador
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45, name: 'num_abogado')]
+    #[ORM\Column(length: 45, name: 'num_abogado', unique: true)]
     private ?string $numAbogado = null;
 
     #[ORM\OneToMany(mappedBy: 'procurador', targetEntity: Expediente::class)]

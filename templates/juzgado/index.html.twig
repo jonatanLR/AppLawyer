@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Juez Index
+{% block title %}Juzgado Index
 {% endblock %}
 
 {% block stylesheets %}
@@ -14,8 +14,6 @@
 {% block body %}
 {% block preloader %}{% endblock %}
 
-{# {{ dump(jueces) }}
-{{ dump(jueces2)}} #}
 {% block navbar %}
 	{{ include('fragments/_navbar.html.twig') }}
 {% endblock %}
@@ -33,31 +31,27 @@
 					<div class="col-12">
 						<div class="card  mt-2">
 							<div class="card-header">
-								<h3 id="juezlength" class="card-title">Datos Jueces ({{ jueces|length }})</h3>
-								<a id="crearjuez" class="btn btn-primary float-right mr-3" href="{{ path('juez_create') }}" role="button">Crear Nuevo Juez</a>
+								<h3 id="juzgadolength" class="card-title">Datos Juzgado ({{ juzgados|length }})</h3>
+								<a id="crearjuzgado" class="btn btn-primary float-right mr-3" href="{{ path('juzgado_create') }}" role="button">Crear Juzgado</a>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
-								<table id="tablejuez" class="table table-bordered table-striped">
+								<table id="tablejuzgado" class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th></th>
 											<th>ID</th>
-											<th>N Profesion</th>
 											<th>Nombre</th>
-											<th>DNI</th>
-											<th>Accion</th>
+											<th>Dirección</th>
+											<th>Acción</th>
 										</tr>
 									</thead>
 
 									<tfoot>
 										<tr>
-											<th></th>
 											<th>ID</th>
-											<th>N Profesion</th>
 											<th>Nombre</th>
-											<th>DNI</th>
-											<th>Accion</th>
+											<th>Dirección</th>
+											<th>Acción</th>
 										</tr>
 									</tfoot>
 								</table>
@@ -72,22 +66,6 @@
 	<!-- /.content -->
 {% endblock %}
 
-{# {% block javascripts %}
-		{{ parent() }}
-		<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/responsive.bootstrap4.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
-
-	{% endblock %} #}
 	{% block footer %}
 		{{include("fragments/_footer.html.twig")}}
 	{% endblock %}
@@ -107,6 +85,6 @@
 		<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
 		<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
 		<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
-		<script src="{{ asset('js/funciones/juez.js') }}"></script>
+		<script src="{{ asset('js/funciones/juzgado.js') }}"></script>
 	{% endblock %}
 {% endblock %}

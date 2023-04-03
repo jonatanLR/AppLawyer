@@ -7,9 +7,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Email;
 
 #[ORM\Entity(repositoryClass: PersonaRepository::class)]
-#[UniqueEntity(fields: ['dni'], message:'There is already an number with this dni')]
+// #[UniqueEntity(fields: ['dni'], message:'There is already a number with this dni')]
 class Persona
 {
     #[ORM\Id]
@@ -18,14 +19,13 @@ class Persona
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'Este valor no deberia ser vacio',)]
     private ?string $nombre = null;
 
     #[ORM\Column(length: 15, unique: true)]
-    #[Assert\Unique] 
     private ?string $dni = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

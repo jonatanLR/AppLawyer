@@ -38,7 +38,10 @@ class JuezController extends AbstractController
         $jueces = $this->juezRepository->findAll();
         // dd($jueces);
 
-        return $this->render('juez/index.html.twig', compact('jueces'));
+        $jueces2 = $this->juezRepository->findAllJuecesWithDQL();
+        // dd($jueces2);
+
+        return $this->render('juez/index.html.twig', compact('jueces', 'jueces2'));
     }
 
     // funcion para crear un juez y redirigir hacia index
@@ -47,7 +50,7 @@ class JuezController extends AbstractController
     {
         $juez = new Juez();
 
-        $form = $this->createForm(JuezFormType::class);
+        $form = $this->createForm(JuezFormType::class, $juez);
 
         $form->handleRequest($request);
 
@@ -150,4 +153,5 @@ class JuezController extends AbstractController
 
         return new JsonResponse($jsonData);
     }
+
 }

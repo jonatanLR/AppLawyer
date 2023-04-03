@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
-{% form_theme formJuez 'bootstrap_5_layout.html.twig' %}
+{% form_theme form_tp_proced 'bootstrap_5_layout.html.twig' %}
 
-{% block title %}Juez Crear
+{% block title %}Crear Tipo Procedimiento
 {% endblock %}
 
 {# {% block stylesheets %}{{ parent() }}{% endblock %} #}
@@ -21,17 +21,18 @@
 		<!-- Content Wrapper. Contains page content -->
 		<div
 			class="content-wrapper">
+
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<div class="container-fluid">
 				  <div class="row mb-2">
 					<div class="col-sm-6">
-					  <h1>Crear Juez</h1>
+					  <h1>Actualizar tipo Procedimiento</h1>
 					</div>
 					<div class="col-sm-6">
 					  <ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item">
-							<a class="btn btn-info float-right mr-3" href="{{ path('juez_index') }}" role="button">Volve Lista Jueces</a>
+							<a class="btn btn-info float-right mr-3" href="{{ path('tp_procedimiento_index') }}" role="button">Volve a Lista</a>
 						</li>
 					  </ol>
 					</div>
@@ -44,48 +45,49 @@
 				<div class="container-fluid">
 					<div
 						class="row">
+                        <div class="col-md-2"></div>
 						<!-- left column -->
-            <div class="col-md-2"></div>
 						<div
 							class="col-md-8">
 							<!-- jquery validation -->
 							<div class="card card-primary mt-3">
 								<div class="card-header">
-									<h3 class="card-title">Crear Nuevo Juez</h3>
+									<h3 class="card-title text-center">Editar Tipo Procedimiento</h3>
 								</div>
-								<!-- /.card-header -->
-								<!-- start card body -->
+								{# card body #}
 								<div
 									class="card-body">
 									<!-- form start -->
-									{{ form_start(formJuez, {'attr': {'novalidate':'novalidate'}}) }}
+									{{ form_start(form_tp_proced) }}
 									{# {{ form_widget(formJuez) }} #}
 
-									{{ form_end(formJuez) }}
+									{{ form_end(form_tp_proced) }}
 								</div>
+								<!-- end card body -->
 							</div>
+							<!-- /.card -->
 						</div>
-						<!-- /.card -->
+						<!--/.col (left) -->
+						<!-- right column -->
+						<div class="col-md-2"></div>
+						<!--/.col (right) -->
 					</div>
-					<!--/.col (left) -->
-					<!-- right column -->
-					<div class="col-md-2"></div>
-					<!--/.col (right) -->
+					<!-- /.row -->
 				</div>
-				<!-- /.row -->
-			</div>
-			<!-- /.container-fluid -->
-		</section>
-		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
-	{# {{ form(formJuez) }} #}
-{% endblock %}
+				<!-- /.container-fluid -->
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		{# {{ form(formJuez) }} #}
+	{% endblock %}
 
-{% block footer %}
-	{{include("fragments/_footer.html.twig")}}
-{% endblock %}
+	{% block footer %}
+		{{include("fragments/_footer.html.twig")}}
+	{% endblock %}
 
-{% block javascripts %}
-	{{ parent() }}
-{% endblock %}{% endblock %}
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+
+{% endblock %}

@@ -15,8 +15,8 @@ class Contrario
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type:"string", columnDefinition:"ENUM('A', 'N', 'J')", nullable: false)]
-    private $tipo;
+    // #[ORM\Column(type:"string", columnDefinition:"ENUM('A', 'N', 'J')", nullable: false)]
+    // private $tipo;
 
     #[ORM\ManyToMany(targetEntity: Expediente::class, mappedBy: 'contrarios')]
     private Collection $expedientes;
@@ -24,6 +24,9 @@ class Contrario
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Persona $persona = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contrarios')]
+    private ?TipoCC $tipoCC = null;
 
     public function __construct()
     {
@@ -33,18 +36,6 @@ class Contrario
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTipo(): ?string
-    {
-        return $this->tipo;
-    }
-
-    public function setTipo(string $tipo): self
-    {
-        $this->tipo = $tipo;
-
-        return $this;
     }
 
     /**
@@ -85,4 +76,17 @@ class Contrario
 
         return $this;
     }
+
+    public function getTipoCC(): ?TipoCC
+    {
+        return $this->tipoCC;
+    }
+
+    public function setTipoCC(?TipoCC $tipoCC): self
+    {
+        $this->tipoCC = $tipoCC;
+
+        return $this;
+    }
+
 }

@@ -34,15 +34,51 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
-							<a href="{{ path('juez_index') }}" class="nav-link active">
+							<a href="{{ path('juez_index') }}" class="nav-link {% if app.request.attributes.get('_route') starts with 'juez' %}active{% endif %}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Juez</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="./index2.html" class="nav-link">
+							<a href="{{ path('contrario_index')}}" class="nav-link {% if app.request.attributes.get('_route') starts with 'contrario' %}active{% endif %}">
 								<i class="far fa-circle nav-icon"></i>
-								<p>Dashboard v2</p>
+								<p>Contrario</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('cliente_index')}}" class="nav-link {% if app.request.attributes.get('_route') starts with 'cliente' %}active{% endif %}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Cliente</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('procurador_index')}}" class="nav-link {% if app.request.attributes.get('_route') starts with 'procurador' %}active{% endif %}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Procurador</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('juzgado_index')}}" class="nav-link {% if app.request.attributes.get('_route') starts with 'juzgado' %}active{% endif %}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Juzgado</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('tp_actuacion_index')}}" class="nav-link {% if app.request.attributes.get('_route') starts with 'tp_actuacion' %}active{% endif %}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tp Actuacion</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('tp_procedimiento_index')}}" class="nav-link {% if app.request.attributes.get('_route') starts with 'tp_procedimiento' %}active{% endif %}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tp Procedimiento</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('role_index')}}" class="nav-link {% if app.request.attributes.get('_route') starts with 'role' %}active{% endif %}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Role</p>
 							</a>
 						</li>
 						<li class="nav-item">
