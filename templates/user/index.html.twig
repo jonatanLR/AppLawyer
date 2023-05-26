@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Procurador Index
+{% block title %}Usuario Index
 {% endblock %}
 
 {% block stylesheets %}
@@ -31,19 +31,21 @@
 					<div class="col-12">
 						<div class="card  mt-2">
 							<div class="card-header">
-								<h3 id="contrariolength" class="card-title">Datos Procurador ({{ procuradores|length }})</h3>
-								<a id="crearprocurador" class="btn btn-primary float-right mr-3" href="{{ path('procurador_create') }}" role="button">Crear Procurador</a>
+								<h3 id="userlength" class="card-title">Datos Usuario ({{ users|length }})</h3>
+								<a id="crearuser" class="btn btn-primary float-right mr-3" href="{{ path('user_create') }}" role="button">Crear Usuario</a>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
-								<table id="tableprocurador" class="table table-bordered table-striped">
+								<table id="tableuser" class="table table-bordered table-striped">
 									<thead>
 										<tr>
 											<th></th>
 											<th>ID</th>
-											<th>Num Profesion</th>
+											<th>Tipo</th>
+                                            <th>Num Prof</th>
 											<th>Nombre</th>
 											<th>DNI</th>
+                                            <th>Foto</th>
 											<th>Accion</th>
 										</tr>
 									</thead>
@@ -52,9 +54,11 @@
 										<tr>
 											<th></th>
 											<th>ID</th>
-											<th>Num Profesion</th>
+											<th>Tipo</th>
+                                            <th>Num Prof</th>
 											<th>Nombre</th>
 											<th>DNI</th>
+                                            <th>Foto</th>
 											<th>Accion</th>
 										</tr>
 									</tfoot>
@@ -89,6 +93,6 @@
 		<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
 		<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
 		<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
-		<script src="{{ asset('js/funciones/procurador.js') }}"></script>
+		<script src="{{ asset('js/funciones/user.js') }}"></script>
 	{% endblock %}
 {% endblock %}

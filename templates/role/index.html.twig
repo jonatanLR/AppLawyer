@@ -32,7 +32,7 @@
 						<div class="card  mt-2">
 							<div class="card-header">
 								<h3 id="rolelength" class="card-title">Datos Role ({{ roles|length }})</h3>
-								<a id="crearrole" class="btn btn-primary float-right mr-3" href="#" role="button">Crear Role</a>
+								<a id="crearrole" class="btn btn-primary float-right mr-3" href="{{ path('role_create') }}" role="button">Crear Role</a>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
@@ -41,8 +41,9 @@
 										<tr>
 											<th>ID</th>
 											<th>Nombre</th>
-											<th>Role Nombre</th>
+											<th>Nombre Rol</th>
 											<th>Estatus</th>
+                                            <th>Acción</th>
 										</tr>
 									</thead>
 
@@ -50,7 +51,8 @@
 										<tr>
 											<th>ID</th>
 											<th>Nombre</th>
-											<th>Descripción</th>
+											<th>Nombre Rol</th>
+                                            <th>Estatus</th>
 											<th>Acción</th>
 										</tr>
 									</tfoot>

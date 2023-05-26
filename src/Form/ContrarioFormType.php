@@ -19,14 +19,14 @@ class ContrarioFormType extends AbstractType
     {
         // dd($options['data']->getTipoCC()->getId());
         $builder
-        ->add($builder->create('persona', PersonaFormType::class, [
+        ->add('persona', PersonaFormType::class, [
             'by_reference' => true,
              'label' =>false,
              'constraints' => [
                 new UniqueEntity(fields:['dni'], message:'Ya existe un registro con este DNI {{ value }}'),
                 new UniqueEntity(fields: ['email'], message: 'Ya existe un corre con esta misma direccion')
               ]
-             ]));
+             ]);
 
             if (false === $options['isEdit']) {
                 $builder->add('tipo', EntityType::class, [

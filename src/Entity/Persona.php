@@ -19,9 +19,19 @@ class Persona
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    #[Assert\NotBlank(message: 'Este valor no deberia ser vacio',)]
+    // #[Assert\NotBlank(message: 'Este valor no deberia ser vacio',)]
+    // #[Assert\Regex(
+    //     pattern: '/\d/',
+    //     match: false,
+    //     message: 'Your name cannot contain a number',
+    // )]
     private ?string $nombre = null;
 
+    // #[Assert\Regex(
+    //     pattern: '/\d/',
+    //     match: true,
+    //     message: 'Your DNI cannot contain a string',
+    // )]
     #[ORM\Column(length: 15, unique: true)]
     private ?string $dni = null;
 

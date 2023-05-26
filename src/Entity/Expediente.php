@@ -24,7 +24,7 @@ class Expediente
     #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'fecha_alta')]
     private ?\DateTimeInterface $fechaAlta = null;
 
-    #[ORM\Column(length: 255, columnDefinition: "ENUM('A', 'P', 'C')")]
+    #[ORM\Column(length: 255, columnDefinition: "ENUM('Activo', 'Pendiente', 'Cerrado')")]
     private ?string $estado = null;
 
     #[ORM\Column(length: 50, nullable: true, name: 'num_ref_exped')]
@@ -312,4 +312,9 @@ class Expediente
 
         return $this;
     }
+
+    // public function __toString()
+    // {
+    //     return $this->users;
+    // }
 }

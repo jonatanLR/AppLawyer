@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Cliente;
+use App\Entity\Persona;
 use App\Entity\TipoCC;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -15,15 +16,17 @@ class ClienteFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-        ->add($builder->create('persona', PersonaFormType::class, [
+       
+        $builder->add('persona', PersonaFormType::class, [
+            'data_class' => Persona::class,
+            'mapped' => false,
             'by_reference' => true,
-             'label' =>false,
-             'constraints' => [
+            'label' => false,
+                 'constraints' => [
                 new UniqueEntity(fields:['dni'], message:'Ya existe un registro con este DNI {{ value }}'),
                 new UniqueEntity(fields: ['email'], message: 'Ya existe un corre con esta misma direccion')
               ]
-             ]));
+        ]);
 
             if (false === $options['isEdit']) {
                 $builder->add('tipo', EntityType::class, [

@@ -40,7 +40,7 @@ class UserFixtures extends Fixture
             $user->setPassword($hashedPassword);
             $user->setFoto($this->faker->imageUrl(640,480,null));
             $user->setNumAbogado($this->faker->unique()->numerify('AP######'));
-            $user->setTipo($this->faker->randomElement(['A','D']));
+            $user->setTipo($this->faker->randomElement(['Admin','Abogado','Suplente']));
             $this->addReference("user_" . $this->faker->unique()->randomDigit, $user);
             
             $manager->persist($user);

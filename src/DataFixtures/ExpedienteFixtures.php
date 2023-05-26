@@ -43,6 +43,7 @@ class ExpedienteFixtures extends Fixture implements DependentFixtureInterface
             $expediente->setTitulo($this->faker->sentence());
             $expediente->setDescripcion($this->faker->paragraph());
             $expediente->setFechaAlta($this->faker->dateTime('now',null));
+            $expediente->setEstado('Activo');
             $expediente->addJueze($this->getReference('juez_' . $this->faker->numberBetween(0,9)));
             $expediente->addContrario($this->getReference('contrario_' . $this->faker->numberBetween(0,9)));
             $expediente->addCliente($this->getReference('cliente_' . $this->faker->numberBetween(0,9)));

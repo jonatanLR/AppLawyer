@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+{% form_theme form_user 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Editar Usuario
+{% endblock %}
+
+{# {% block stylesheets %}{{ parent() }}{% endblock %} #}
+
+{% block body %}
+	{% block preloader %}{% endblock %}
+
+	{% block navbar %}
+		{{ include('fragments/_navbar.html.twig') }}
+	{% endblock %}
+
+	{% block main_sidebar %}
+		{{ include("fragments/_main_sidebar.html.twig") }}
+	{% endblock %}
+
+	{% block content_wrapper %}
+		<!-- Content Wrapper. Contains page content -->
+		<div
+			class="content-wrapper">
+
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+				  <div class="row mb-2">
+					<div class="col-sm-6">
+					  <h1>Actualizar Usuario</h1>
+					</div>
+					<div class="col-sm-6">
+					  <ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item">
+							<a class="btn btn-info float-right mr-3" href="{{ path('user_index') }}" role="button">Volve a Lista</a>
+						</li>
+					  </ol>
+					</div>
+				  </div>
+				</div><!-- /.container-fluid -->
+			  </section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div
+						class="row">
+                        <div class="col-md-2"></div>
+						<!-- left column -->
+						<div
+							class="col-md-8">
+							<!-- jquery validation -->
+							<div class="card card-primary mt-3">
+								<div class="card-header">
+									<h3 class="card-title text-center">Editar Usuario</h3>
+								</div>
+								{# card body #}
+								<div
+									class="card-body">
+									{# <pre> #}
+										{# {{ dump(form_user) }} #}
+										{# {{ dump(form_user.foto) }} #}
+									{# </pre> #}
+									<!-- form start -->
+									{{ form_start(form_user) }}
+									{{ form_row(form_user.persona) }}
+									{{ form_row(form_user.numAbogado) }}
+									{{ form_row(form_user.roles) }}
+									{{ form_row(form_user.tipo) }}
+									{{ form_row(form_user.foto) }}
+
+									<div class="card" style="width: 18rem;">
+									{% if form_user.vars.value.foto != null and form_user.vars.value.foto != '' %}
+										<img class="card-img-top rounded border border-3" src="{{ asset('uploads/photos/' ~ form_user.vars.value.foto)}}" alt="" srcset="" width="300" height="200">
+									{% endif %}
+								</div>
+									
+									{{ form_end(form_user) }}
+								</div>
+								<!-- end card body -->
+							</div>
+							<!-- /.card -->
+						</div>
+						<!--/.col (left) -->
+						<!-- right column -->
+						<div class="col-md-2"></div>
+						<!--/.col (right) -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		{# {{ form(formJuez) }} #}
+	{% endblock %}
+
+	{% block footer %}
+		{{include("fragments/_footer.html.twig")}}
+	{% endblock %}
+
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+
+{% endblock %}

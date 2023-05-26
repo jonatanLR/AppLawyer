@@ -22,7 +22,7 @@ class Role
     private Collection $users;
 
     #[ORM\Column(name: 'role_name')]
-    private array $roleName = [];
+    private ?string $roleName = null;
 
     #[ORM\Column]
     private ?bool $status = null;
@@ -76,12 +76,12 @@ class Role
         return $this;
     }
 
-    public function getRoleName(): array
+    public function getRoleName(): string
     {
         return $this->roleName;
     }
 
-    public function setRoleName(array $roleName): self
+    public function setRoleName(string $roleName): self
     {
         $this->roleName = $roleName;
 
@@ -98,5 +98,10 @@ class Role
         $this->status = $status;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

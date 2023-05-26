@@ -15,13 +15,13 @@ class ProcuradorFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add($builder->create('persona', PersonaFormType::class, [
+        ->add('persona', PersonaFormType::class, [
             'by_reference' => true,
              'label' =>false,
              'constraints' => [
                 new UniqueEntity(fields:['dni'], message:'Ya existe un registro con este DNI {{ value }}'),
                 new UniqueEntity(fields: ['email'], message: 'Ya existe un corre con esta misma direccion')                 ]
-             ]))
+             ])
         ->add('numAbogado',TextType::class)
         ->add('grabar', SubmitType::class)
         ;

@@ -25,7 +25,7 @@ class ClienteController extends AbstractController
     public function index(): Response
     {
         $clientes = $this->clienterepo->findAll();
-
+        // dd($clientes);
         return $this->render('cliente/index.html.twig', compact('clientes'));
     }
 

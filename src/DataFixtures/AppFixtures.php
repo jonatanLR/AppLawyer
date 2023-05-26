@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 4; $i++) { 
             $role = new Role();
             $role->setName($arrayName[$i]);
-            $role->setRoleName([$arrayRole[$i]]);
+            $role->setRoleName($arrayRole[$i]);
             $role->setStatus(1);
             
             $manager->persist($role);
