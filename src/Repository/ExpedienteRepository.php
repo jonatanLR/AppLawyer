@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Expediente;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ExpedienteRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private EntityManagerInterface $emi)
     {
         parent::__construct($registry, Expediente::class);
     }
@@ -63,4 +64,16 @@ class ExpedienteRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    // function to get the greater expediente ID
+    public function greaterId()
+    {
+        $query = $this->emi->createQuery(
+            'SELECT e FROM App\Entity\Expediente e ORDER BY e.id DESC'
+            )
+            ->setMaxResults(1); // sirve para obtener el primer resultado (LIMIT 1)
+            // ->setFirstResult(14);
+        $exp = $query->getResult();
+        return $exp;
+    }
 }

@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% form_theme form_exped 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Crear Expediente
+{% endblock %}
+
+{# {% block stylesheets %}{{ parent() }}{% endblock %} #}
+
+{% block body %}
+	{% block preloader %}{% endblock %}
+
+	{% block navbar %}
+		{{ include('fragments/_navbar.html.twig') }}
+	{% endblock %}
+
+	{% block main_sidebar %}
+		{{ include("fragments/_main_sidebar.html.twig") }}
+	{% endblock %}
+
+	{% block content_wrapper %}
+		<!-- Content Wrapper. Contains page content -->
+		<div
+			class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Crear Usuario</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item">
+									<a class="btn btn-info float-right mr-3" href="{{ path('expediente_index') }}" role="button">Volve a Lista</a>
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div
+						class="row">
+						<!-- left column -->
+						<div class="col-md-2"></div>
+						<div
+							class="col-md-8">
+							<!-- jquery validation -->
+							<div class="card card-primary mt-3">
+								<div class="card-header">
+									<h3 class="card-title">Nuevo Expediente</h3>
+								</div>
+								<!-- /.card-header -->
+								<!-- start card body -->
+
+								<div
+									class="card-body">
+									<!-- form start -->
+									{{ form_start(form_exped) }}
+									{# {{ form_row(form_user.persona.dni) }}
+																		{{ form_row(form_user.persona.email) }}
+																		{{ form_row(form_user.roles) }} #}
+
+									{{ form_end(form_exped) }}
+								</div>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!--/.col (left) -->
+					<!-- right column -->
+					<div class="col-md-2"></div>
+					<!--/.col (right) -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	{# {{ form(formJuez) }} #}
+{% endblock %}
+
+{% block footer %}
+	{{include("fragments/_footer.html.twig")}}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}{% endblock %}

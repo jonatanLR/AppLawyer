@@ -79,7 +79,7 @@ $(document).ready(function () {
         $('#tablecliente tbody').on('click', 'td .delete', function () {
             var id = $(this).attr("id");
             var fila = $(this);
-            // console.log('click en button del: ' + id);
+            console.log('click en button del: ' + id);
             Swal.fire({
                 title: 'Seguro de eliminar?',
                 text: "No seras capaz de revertir esta accion!",

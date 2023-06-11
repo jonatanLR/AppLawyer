@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expediente Index
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
+
+{% endblock %}
+
+{% block body %}
+	{% block preloader %}{% endblock %}
+
+	{% block navbar %}
+		{{ include('fragments/_navbar.html.twig') }}
+	{% endblock %}
+
+	{% block main_sidebar %}
+		{{ include("fragments/_main_sidebar.html.twig") }}
+	{% endblock %}
+
+	{% block content_wrapper %}
+		{# {{include("fragments/_content_wrapper.html.twig")}} #}
+		<!-- Main content -->
+			<div class="content-wrapper"> <section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card  mt-2">
+								<div class="card-header">
+									<h3 id="expedientelength" class="card-title">Expedientes ({{ expedientes|length }})</h3>
+									<a id="crear_expediente" class="btn btn-primary float-right mr-3" href="{{ path('expediente_create') }}" role="button">Crear Expediente</a>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="table_expediente" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Titulo</th>
+												<th>Descripcion</th>
+												<th>Fecha</th>
+												<th>Estado</th>
+												<th>Tp Procedimineto</th>
+												<th>Acciones</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for exped in expedientes %}
+												<tr style="font-size: 14px;">
+													<td>{{ exped.id }}</td>
+													<td>{{ exped.titulo }}</td>
+													<td>{{ exped.descripcion }}</td>
+													<td>{{ exped.fechaAlta | date("d/m/y", "America/Tegucigalpa") }}</td>
+													{# Badge para evaluar el estado de expediente #}
+													{% if exped.estado is same as "Activo" %}
+														<td>
+															<h5>
+																<span class="badge bg-info">{{ exped.estado }}</span>
+															</h5>
+														</td>
+													{% endif %}
+													{% if exped.estado is same as "Pendiente" %}
+														<td>
+															<h5>
+																<span class="badge bg-warning">{{ exped.estado }}</span>
+															</h5>
+														</td>
+													{% endif %}
+													{% if exped.estado is same as "Cerrado" %}
+														<td>
+															<h5>
+																<span class="badge bg-danger">{{ exped.estado }}</span>
+															</h5>
+														</td>
+													{% endif %}
+
+													<td>{{ exped.tpProcedimiento.nombre }}</td>
+													<td>
+														<div class="d-flex flex-wrap">
+															<div>
+															<a href="{{ path('expediente_edit', {'id' : exped.id}) }}" class="editar btn btn-sm btn-primary" title="Editar Expediente">
+																<i class="fas fa-edit"></i>
+															</a>
+															<button type="button" id="{{ exped.id }}" class="btn btn-sm btn-danger delete">
+																<i class="fas fa-trash"></i>
+															</button>
+														</div>
+														<div class="pt-1">
+															{# <button type="button" id="{{ exped.id }}" class="btn btn-sm btn-info ver">
+																<i class="fas fa-eye"></i>
+															</button> #}
+															<a id="{{ exped.id }}" href="#" data-toggle="modal" data-target="#crearApoderado" class="btn btn-sm btn-info ver" data-placement="top"><i class="fas fa-eye"></i></a>
+														</div>
+														</div>
+													</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- /.content -->
+	{% endblock %}
+
+	{% block footer %}
+		{{include("fragments/_footer.html.twig")}}
+	{% endblock %}
+
+	{% block javascripts %}
+		<!-- dataTables -->
+		{{parent()}}
+		<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/responsive.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
+		<script src="{{ asset('js/funciones/expediente.js') }}"></script>
+	{% endblock %}
+{% endblock %}

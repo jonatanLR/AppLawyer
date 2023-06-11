@@ -89,4 +89,9 @@ class Contrario
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getPersona()->getNombre();
+    }
+
 }

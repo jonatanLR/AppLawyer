@@ -87,7 +87,7 @@ class ContrarioController extends AbstractController
 
         $form_contra->handleRequest($request);
 
-        $data = $form_contra->getData();
+        // $data = $form_contra->getData();
 
         // $content = json_decode($request->getContent());
         // dd($data);
