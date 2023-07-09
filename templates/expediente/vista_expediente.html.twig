@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expediente Vista
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
+
+{% endblock %}
+
+{% block body %}
+	{% block preloader %}{% endblock %}
+
+	{% block navbar %}
+		{{ include('fragments/_navbar.html.twig') }}
+	{% endblock %}
+
+	{% block main_sidebar %}
+		{{ include("fragments/_main_sidebar.html.twig") }}
+	{% endblock %}
+
+	{% block content_wrapper %}
+		{# {{include("fragments/_content_wrapper.html.twig")}} #}
+		<!-- Main content -->
+			<div class="content-wrapper"> <section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card  mt-2">
+								<div class="card-header">
+									<h3 id="expedientelength" class="card-title">Expediente: (<strong>{{ expediente.id }}</strong>)</h3>
+									<a class="btn btn-info btn-sm float-right mr-3" href="{{ path('expediente_index') }}" role="button">Volve a Lista</a>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<div class="row">
+										<label for="">Titulo</label>
+										<input class="form-control mb-2" type="text" value="{{ expediente.titulo }}" readonly>
+
+										<label class="mr-3" for="">Descripcion</label>
+										<textarea class="form-control" readonly>{{ expediente.descripcion }}</textarea>
+									</div>
+									<div class="row mt-2">
+										<div class="col">
+											<label for="">Fecha de Creacion:</label>
+											<input type="text" class="form-control" value="{{ expediente.fechaAlta|date() }}">
+										</div>
+										<div class="col">
+											<label for="">Num Referencia:</label>
+											<input type="text" class="form-control" value="{{ expediente.numRefExped }}">
+										</div>
+										<div class="col">
+											<label for="">Num Autos:</label>
+											<input type="text" class="form-control" value="{{ expediente.numAutos }}">
+										</div>
+									</div>
+									<div class="row mt-2">
+										<div class="col">
+											<label for="">Procurador:</label>
+											<input type="text" class="form-control" value="{{ expediente.procurador }}">
+										</div>
+										<div class="col">
+											<label for="">Juzgado:</label>
+											<input type="text" class="form-control" value="{{ expediente.juzgado }}">
+										</div>
+										<div class="col">
+											<label for="">Tipo de Procedimiento:</label>
+											<input type="text" class="form-control" value="{{ expediente.tpProcedimiento }}">
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-sm-4">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Jueces</h5>
+													<br>
+													<ul>
+														{% for juez in expediente.juezes %}
+															<li>{{ juez.getPersona().getNombre() |e }}</li>
+														{% endfor %}
+													</ul>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Clientes</h5>
+													<br>
+													<ul>
+														{% for cliente in expediente.clientes %}
+															<li>{{ cliente.getPersona().getNombre() |e }}</li>
+														{% endfor %}
+													</ul>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Contrarios</h5>
+													<br>
+													<ul>
+														{% for contrario in expediente.contrarios %}
+															<li>{{ contrario.getPersona().getNombre() |e }}</li>
+														{% endfor %}
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Card para mostrar las actuaciones -->
+									<div class="row">
+										<div class="card">
+											{# <div class="card-header">
+												<h4>Actuaciones</h4>
+												<a type="button" class="btn btn-sm float-right mr-3">Nueva Actuacion</a>
+											</div> #}
+											<div class="card-header">
+												<h3 id="expedientelength" class="card-title">Actuaciones</h3>
+												<a type="button" class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#crearActuacion" data-placement="top"  role="button">Nueva Actuacion</a>
+												
+											</div>
+											<div class="card-body">
+												<table id="tbl_actuacion" class="table table-bordered">
+													<thead>
+														<tr>
+															<th>ID</th>
+															<th>Nombre</th>
+															<th>Descripcion</th>
+															<th>Tipo</th>
+															<th>Fecha</th>
+															<th>Direccion</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for actuacion in expediente.Actuaciones %}
+															<tr>
+																<td>{{ actuacion.id }}</td>
+																<td>{{ actuacion.nombre }}</td>
+																<td>{{ actuacion.descripcion }}</td>
+																<td>{{ actuacion.getTpActuacion().getNombre() }}</td>
+																<td>{{ actuacion.getFechaAlta()|date() }}</td>
+																<td>{{ actuacion.direccion }}</td>
+															</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<!---->
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- /.content -->
+	
+		{# {{include("expediente/modal_crearActuacion.html.twig")  }} #}
+		{% include 'actuacion/modal_crearActuacion.html.twig' with {expediente: expediente.id, tpActuaciones} %}
+	{% endblock %}
+
+	{% block footer %}
+	    
+		{{include("fragments/_footer.html.twig")}}
+	{% endblock %}
+
+	{% block javascripts %}
+		<!-- dataTables -->
+		{{parent()}}
+
+		<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/responsive.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
+		<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
+
+		<script src="{{ asset('js/funciones/expediente.js') }}"></script>
+		<script src="{{ asset('js/funciones/actuacion.js') }}"></script>
+	{% endblock %}
+{% endblock %}
+

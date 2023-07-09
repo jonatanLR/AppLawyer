@@ -313,8 +313,8 @@ class Expediente
         return $this;
     }
 
-    // public function __toString()
-    // {
-    //     return $this->users;
-    // }
+    public function __toString()
+    {
+        return $this->id;
+    }
 }

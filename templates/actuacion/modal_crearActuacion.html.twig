@@ -1,0 +1,58 @@
+<!-- modal con formulario para crear un registro de apoderados -->
+<div class="modal fade" id="crearActuacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Crear Actuacion</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+
+			<!-- Formulario para mostrar los datos de apoderado a crear -->
+			{# <form id="frmCrearActuacion"> #}
+				<div class="modal-body mx-1">
+					<div class="row mb-3">
+						<div class="col-sm-12 col-md-4 col-lg-6">
+							<label>Expediente</label>
+							<input type="text" id="id_Exped"  class="form-control" readonly required value="{{ expediente }}">
+						</div>
+						<div class="col-sm-12 col-md-4 col-lg-6">
+							<label>Fecha:</label>
+							<input type="date" id="act_fecha" class="form-control">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label>Nombre</label>
+						<input type="text" id="act_nombre" class="form-control" required placeholder="Nombre Actuacion">
+					</div>
+					<div class="row mb-3">
+						<label>Descripcion</label>
+						<input type="text" id="act_descripcion" required placeholder="Descripcion" class="form-control">
+					</div>
+					<div class="row mb-3">
+						<label>Tipo</label>
+						<select class="form-select form-control" id="act_tpAct" aria-label="Default select example">
+							<option selected>Elija una opcion</option>
+							{% for tpActuacion in tpActuaciones %}
+								<option value="{{ tpActuacion.id }}">{{ tpActuacion.nombre }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="row mb-3">
+						<label>Dirección</label>
+						<input type="text" id="act_direccion" class="form-control" placeholder="Dirección">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<div>
+						<input type="submit" value="Guardar" id="btn_submit" class="btn btn-primary">
+					</div>
+				</div>
+			{# </form> #}
+		</div>
+
+	</div>
+</div>

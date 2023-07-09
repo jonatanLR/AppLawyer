@@ -5,32 +5,32 @@ namespace App\Controller;
 use App\Entity\Expediente;
 use App\Form\ExpedienteFormType;
 use App\Repository\ExpedienteRepository;
+use App\Repository\TpActuacionRepository;
 use App\Services\Generador;
 use App\Services\GeneradorIDExped;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-// use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
-// #[AsController]
 #[Route('/expediente', name: 'expediente_', requirements: ['_locale' => 'es|en|fr'])]
 class ExpedienteController extends AbstractController
 {
     public function __construct(
         private ExpedienteRepository $expedRepo,
         private EntityManagerInterface $emi,
-        private GeneradorIDExped $generador
+        private GeneradorIDExped $generador,
+        private TpActuacionRepository $tpRepoActuacion
         )
-    {
-        
-    }
+    {  }
+
     #[Route('/', name: 'index')]
     public function index(): Response
     {
         $expedientes = $this->expedRepo->findBy(['estado' => ['Activo', 'Pendiente', 'Cerrado']], ['id' => 'DESC']);
-
+        // dd($expedientes);
         return $this->render('expediente/index.html.twig', compact('expedientes'));
     }
 
@@ -39,6 +39,8 @@ class ExpedienteController extends AbstractController
     {
         $newExped = new Expediente();
 
+        // se genera el siguiente ID expediente por medio del servicio y se 
+        // envia en el form
         $newIdExpediente = $this->generador->nextId();
 
         $form = $this->createForm(ExpedienteFormType::class, $newExped, [
@@ -202,26 +204,41 @@ class ExpedienteController extends AbstractController
 
     // funcion ajaxGet to get expediente instance by id
     #[Route('/ajax_get/{id}', methods: ['GET'], name: 'ajax_get')]
-    public function ajaxGet($id)
+    public function getExpediente(Request $request): JsonResponse
     {
-        // $clienteAjax = $this->clienterepo->findAll();
-        $expediente = $this->expedRepo->findBy($id);
-        // $jsonData = array();
-        // $idx = 0;
-
-        // foreach ($clienteAjax as $cliente) {
-        //     $temp = array(
-        //         "id" => $cliente->getId(),
-        //         "tipo" => $cliente->getTipoCC()->getNombre(),
-        //         "nombre" => $cliente->getPersona()->getNombre(),
-        //         "dni" => $cliente->getPersona()->getDni(),
-        //         "email" => $cliente->getPersona()->getEmail(),
-        //         "direccion" => $cliente->getPersona()->getDireccion(),
-        //         "telefono" => $cliente->getPersona()->getTelefono()
-        //     );
-        //     $jsonData[$idx++] = $temp;
-        // }
-
-        return $expediente;
+        $expediente = $this->expedRepo->find($request->get('id'));
+        // dd($expediente);
+        return new JsonResponse(
+            [
+                'expediente' => [
+                    'id' => $expediente->getId(),
+                    'titulo' => $expediente->getTitulo(),
+                    'descripcion' => $expediente->getDescripcion(),
+                    'createdAt' => $expediente->getFechaAlta(),
+                    'estado' => $expediente->getEstado(),
+                    'numRef' => $expediente->getNumRefExped(),
+                    'numAutos' => $expediente->getNumAutos(),
+                    'juezes' => $expediente->getJuezes(),
+                    'contrarios' => $expediente->getContrarios(),
+                    'clientes' => $expediente->getClientes(),
+                    'users' => $expediente->getUsers(),
+                    'procurador' => $expediente->getProcurador(),
+                    'juzgado' => $expediente->getJuzgado(),
+                    'tpProcedimiento' => $expediente->getTpProcedimiento(),
+                    'actuaciones' => $expediente->getActuaciones()
+                ]
+            ]
+        );
     }
+
+     // funcion ajaxGet to get expediente instance by id
+     #[Route('/ver_expediente/{id}', methods: ['GET'], name: 'vista')]
+     public function getExpedienteVista(Request $request): Response
+     {
+        $expediente = $this->expedRepo->find($request->get('id'));
+        $tpActuaciones = $this->tpRepoActuacion->findAll();
+        // dd($expediente);
+        return $this->render('expediente/vista_expediente.html.twig', compact('expediente', 'tpActuaciones'));
+
+     }
 }

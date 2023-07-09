@@ -52,10 +52,16 @@ $(document).ready(function () {
     // funcion para ver info expediente seleccionado
     $('#table_expediente tbody').on('click', 'td .ver', function () {
         var id = $(this).attr("id");
-        var datos = table.row( this ).data()[1];
+        // var datos = table.row( this ).data()[1];
         // var datos = table.row($(this).parents('tr')).data();
-        var fila = $(this);
-        console.log(datos);
-        
+        // var fila = $(this);
+        // console.log(datos);
+        fetch('/expediente/ajax_get/' + id)
+            .then(response => response.json())
+            .then(data => console.log(data.expediente.juezes))
+            .catch(err => console.log('Solicitud fallida', err));
+            // .then(data => data.forEach(element => console.log(element.nombre)));
+
     });// end of delete
+    
 });

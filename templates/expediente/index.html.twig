@@ -93,7 +93,8 @@
 															{# <button type="button" id="{{ exped.id }}" class="btn btn-sm btn-info ver">
 																<i class="fas fa-eye"></i>
 															</button> #}
-															<a id="{{ exped.id }}" href="#" data-toggle="modal" data-target="#crearApoderado" class="btn btn-sm btn-info ver" data-placement="top"><i class="fas fa-eye"></i></a>
+															{# <a id="{{ exped.id }}" href="#" data-toggle="modal" data-target="#crearApoderado" class="btn btn-sm btn-info ver" data-placement="top"><i class="fas fa-eye"></i></a> #}
+															<a href="{{ path('expediente_vista', {'id' : exped.id}) }}"  class="btn btn-sm btn-info ver"><i class="fas fa-eye"></i></a>
 														</div>
 														</div>
 													</td>
